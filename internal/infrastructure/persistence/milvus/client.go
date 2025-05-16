@@ -19,9 +19,9 @@ type MilvusClient struct {
 // Option defines a function type for configuring the Milvus client
 type Option func(*client.Config)
 
-func NewMilvusClient(cfg infrastructure.MilvusConfig) (*MilvusClient, error) {
+func NewMilvusClient(ctx context.Context, cfg infrastructure.MilvusConfig) (*MilvusClient, error) {
 	// 创建Milvus客户端
-	milvusClient, err := client.NewClient(context.Background(), client.Config{
+	milvusClient, err := client.NewClient(ctx, client.Config{
 		Address:  cfg.Address,
 		Username: cfg.Username,
 		Password: cfg.Password,
@@ -31,7 +31,7 @@ func NewMilvusClient(cfg infrastructure.MilvusConfig) (*MilvusClient, error) {
 	}
 
 	// 检查集合是否存在
-	exists, err := milvusClient.HasCollection(context.Background(), cfg.CollectionName)
+	exists, err := milvusClient.HasCollection(ctx, cfg.CollectionName)
 	if err != nil {
 		return nil, fmt.Errorf("failed to check collection existence: %v", err)
 	}
@@ -73,7 +73,7 @@ func NewMilvusClient(cfg infrastructure.MilvusConfig) (*MilvusClient, error) {
 			},
 		}
 
-		err := milvusClient.CreateCollection(context.Background(), schema, entity.DefaultShardNumber)
+		err := milvusClient.CreateCollection(ctx, schema, entity.DefaultShardNumber)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create collection: %v", err)
 		}

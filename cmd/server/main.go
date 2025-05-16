@@ -42,18 +42,22 @@ func main() {
 	milvusClient, err := initMilvus(rootCtx, cfg.Milvus)
 	if err != nil {
 		logger.Errorf("Failed to initialize Milvus: %v", err)
+		return
 	}
-
+	if milvusClient == nil {
+		logger.Errorf("Failed to initialize Milvus: %v", err)
+		return
+	}
 	embedder := embedding.NewHuggingFaceEmbedder(cfg.Embedding.ModelName, cfg.Embedding.APIKey, cfg.Embedding.Model)
 	if embedder == nil {
 		logger.Fatalf("Failed to initialize embedder")
 	}
-
+	logger.Infof("Embedder initialized successfully with model: %s", embedder)
 	deepseekClient := initDeepSeek(cfg.DeepSeek)
-	if err != nil {
-		logger.Fatalf("Failed to initialize DeepSeek client: %v", err)
+	if deepseekClient == nil {
+		logger.Fatalf("Failed to initialize DeepSeek client")
 	}
-
+	logger.Infof("DeepSeek client initialized successfully with model: %s", deepseekClient.Model())
 	// 4. 初始化解析器工厂
 	parserFactory := document.NewParserFactory(
 		cfg.Document.ChunkSize,
@@ -153,7 +157,7 @@ func initMilvus(ctx context.Context, cfg config.MilvusConfig) (*milvus.MilvusCli
 		options = append(options, milvus.WithAuth(cfg.Username, cfg.Password))
 	}
 
-	return milvus.NewMilvusClient(cfg)
+	return milvus.NewMilvusClient(ctx, cfg)
 }
 
 // 初始化DeepSeek客户端

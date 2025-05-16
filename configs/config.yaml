@@ -18,14 +18,15 @@ milvus:
     cert_path: ""
 
 embedding:
-  model_name: "text-embedding-3-small"
-  api_key: "your-api-key"
-  timeout: 15s
+  model_name: "all-MiniLM-L6-v2"
+  base_url: "http://localhost:8081"
+  api_key: "dummy"
+  timeout: 30s
 
 deepseek:
-  base_url: "http://localhost:5000"
-  api_key: "your-deepseek-key"
-  model: "deepseek-local"
+  base_url: "http://localhost:11434"
+  api_key: "dummy-key"
+  model: "deepseek-r1:1.5b"
   timeout: 30s
 
 document:
