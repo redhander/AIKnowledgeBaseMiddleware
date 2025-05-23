@@ -4,6 +4,7 @@ import "context"
 
 type Embedding struct {
 	Vector []float32
+	Model  string
 }
 
 type Embedder interface {

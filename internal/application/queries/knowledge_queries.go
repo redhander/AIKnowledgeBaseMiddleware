@@ -10,8 +10,8 @@ import (
 )
 
 type QueryKnowledgeRequest struct {
-	Text string
-	TopK int
+	Text string `json:"text"` // 查询文本
+	TopK int    `json:"topk"`
 }
 
 type QueryKnowledgeResponse struct {

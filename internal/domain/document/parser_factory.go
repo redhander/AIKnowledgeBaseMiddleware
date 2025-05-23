@@ -15,6 +15,7 @@ func NewParserFactory(chunkSize, chunkOverlap int) *ParserFactory {
 			".pdf":  NewPDFParser(chunkSize, chunkOverlap),
 			".txt":  NewTextParser(chunkSize, chunkOverlap),
 			".docx": NewDOCXParser(chunkSize, chunkOverlap),
+			".doc":  NewDOCXParser(chunkSize, chunkOverlap),
 			".xlsx": NewXLSParser(chunkSize, chunkOverlap),
 			".xls":  NewXLSParser(chunkSize, chunkOverlap),
 		},

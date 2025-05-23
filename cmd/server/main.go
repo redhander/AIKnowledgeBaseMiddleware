@@ -20,7 +20,6 @@ import (
 	milvus "github.com/redhander/AIKnowledgeBaseMiddleware/internal/infrastructure/persistence/milvus" // 添加milvus包导入
 	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/interfaces/http"
 	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/interfaces/http/handler"
-	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/interfaces/http/middleware"
 )
 
 func main() {
@@ -48,7 +47,7 @@ func main() {
 		logger.Errorf("Failed to initialize Milvus: %v", err)
 		return
 	}
-	embedder := embedding.NewHuggingFaceEmbedder(cfg.Embedding.ModelName, cfg.Embedding.APIKey, cfg.Embedding.Model)
+	embedder := embedding.NewHuggingFaceEmbedder(cfg.Embedding.ApiURL, cfg.Embedding.APIKey, cfg.Embedding.ModelName)
 	if embedder == nil {
 		logger.Fatalf("Failed to initialize embedder")
 	}
@@ -85,11 +84,7 @@ func main() {
 
 	// 7. 初始化HTTP服务
 	httpHandler := handler.NewKnowledgeHandler(uploadHandler, queryHandler)
-	router := http.NewRouter(
-		httpHandler,
-		middleware.Logging(logger),
-		middleware.Recovery(logger),
-	)
+	router := http.NewRouter(httpHandler, logger)
 
 	srv := &httpO.Server{
 		Addr:         cfg.Server.Address,

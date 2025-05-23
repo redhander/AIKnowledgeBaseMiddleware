@@ -52,6 +52,7 @@ type EmbeddingConfig struct {
 	ModelName string        `yaml:"model_name"`
 	APIKey    string        `yaml:"api_key"`
 	Timeout   time.Duration `yaml:"timeout"`
+	ApiURL    string        `yaml:"api_url"`
 	Model     string        `yaml:"model"`
 }
 

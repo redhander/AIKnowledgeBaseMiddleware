@@ -19,7 +19,7 @@ milvus:
 
 embedding:
   model_name: "all-MiniLM-L6-v2"
-  base_url: "http://localhost:8081"
+  api_url: "http://localhost:8081/embed"
   api_key: "dummy"
   timeout: 30s
 

@@ -14,6 +14,11 @@ import (
 	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/infrastructure/logger"
 )
 
+type UploadDocumentRequest struct {
+	FilePath string            `json:"file_path"` // Path to the document file
+	Metadata map[string]string `json:"metadata"`  // Optional metadata
+}
+
 // Metadata 结构
 type Metadata map[string]interface{}
 
@@ -56,6 +61,15 @@ func NewUploadDocumentHandler(
 	embedder embedding.Embedder,
 	repo document.DocumentRepository,
 ) *UploadDocumentHandler {
+	if factory == nil {
+		panic("parserFactory cannot be nil")
+	}
+	if embedder == nil {
+		panic("embedder cannot be nil")
+	}
+	if repo == nil {
+		panic("docRepo cannot be nil")
+	}
 	return &UploadDocumentHandler{
 		parserFactory: factory,
 		embedder:      embedder,
@@ -122,7 +136,6 @@ func (h *UploadDocumentHandler) Handle(ctx context.Context, cmd UploadDocumentCo
 		return fmt.Errorf("document parsing failed: %w", err)
 	}
 	log.Infof("Parsed into %d chunks", len(docs))
-
 	// 7. 生成向量嵌入
 	vectorsGenerated := 0
 	for _, doc := range docs {
@@ -140,6 +153,10 @@ func (h *UploadDocumentHandler) Handle(ctx context.Context, cmd UploadDocumentCo
 			if err != nil {
 				log.Warnf("Failed to generate embedding for chunk: %v", err)
 				continue // 跳过失败的分块或 return err 根据业务需求
+			}
+			if embedding == nil {
+				log.Warn("Received nil embedding")
+				continue
 			}
 			doc.Vector = embedding.Vector
 			vectorsGenerated++
