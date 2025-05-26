@@ -7,7 +7,7 @@ toolchain go1.23.9
 require (
 	github.com/gorilla/mux v1.8.1
 	github.com/milvus-io/milvus-sdk-go/v2 v2.4.2
-	github.com/unidoc/unioffice v1.39.0
+	github.com/qifengzhang007/gooxml v1.0.13-alpha
 	github.com/unidoc/unipdf/v3 v3.55.0
 	github.com/xuri/excelize/v2 v2.9.1
 	golang.org/x/net v0.40.0
@@ -29,7 +29,6 @@ require (
 	github.com/milvus-io/milvus-proto/go-api/v2 v2.4.10-0.20240819025435-512e3b98866a // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/qifengzhang007/gooxml v1.0.13-alpha // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.4 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect

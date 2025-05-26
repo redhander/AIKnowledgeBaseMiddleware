@@ -90,8 +90,8 @@ func main() {
 		Addr:         cfg.Server.Address,
 		Handler:      router,
 		ReadTimeout:  15 * time.Second,
-		WriteTimeout: 30 * time.Second,
-		IdleTimeout:  60 * time.Second,
+		WriteTimeout: 300 * time.Second,
+		IdleTimeout:  600 * time.Second,
 	}
 
 	// 8. 启动服务

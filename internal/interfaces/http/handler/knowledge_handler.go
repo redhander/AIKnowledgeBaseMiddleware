@@ -68,6 +68,7 @@ func (h *KnowledgeHandler) QueryKnowledge(w http.ResponseWriter, r *http.Request
 	// 解析请求体
 	body, _ := io.ReadAll(r.Body)
 	r.Body = io.NopCloser(bytes.NewBuffer(body)) //
+	logger.Infof("Request Body: %s", string(body))
 	var req queries.QueryKnowledgeRequest
 	if err := json.Unmarshal(body, &req); err != nil {
 		logger.Errorf("JSON decode error: %v", err)

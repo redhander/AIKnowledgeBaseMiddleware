@@ -71,7 +71,7 @@ services:
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio/data2:/data2
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio/data3:/data3
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio/data4:/data4
-    command: minio server /minio_data --console-address ":9001"
+    command: minio server /data1 /data2 /data3 /data4 --console-address ":9001"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -109,8 +109,8 @@ services:
       - "8081:8081"
     volumes:
     - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/huggingface:/models
-      - ./huggingface-server/models:/models  # 确保模型文件挂载到容器内
+    - ./huggingface-server/models:/models  # 确保模型文件挂载到容器内
 networks:
   default:
     name: milvus
-    external: true
+    # external: true

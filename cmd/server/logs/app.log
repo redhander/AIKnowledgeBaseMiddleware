@@ -350,3 +350,129 @@
 2025-05-22T16:29:45+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
 2025-05-22T17:05:39+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
 2025-05-22T17:05:39+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T10:59:02+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T10:59:02+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T10:59:02+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T10:59:02+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b env=development app=enterprise-knowledge
+2025-05-26T10:59:02+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:03:14+08:00 [INFO] Request: POST /api/documents app=enterprise-knowledge env=development
+2025-05-26T11:04:04+08:00 [INFO] Request: POST /api/documents app=enterprise-knowledge env=development
+2025-05-26T11:13:44+08:00 [INFO] Shutting down server... env=development app=enterprise-knowledge
+2025-05-26T11:13:44+08:00 [INFO] Server exited properly env=development app=enterprise-knowledge
+2025-05-26T11:17:50+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T11:17:50+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T11:17:50+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T11:17:50+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T11:17:50+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:17:54+08:00 [INFO] Shutting down server... env=development app=enterprise-knowledge
+2025-05-26T11:17:54+08:00 [INFO] Server exited properly env=development app=enterprise-knowledge
+2025-05-26T11:18:18+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T11:18:18+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T11:18:18+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T11:18:18+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T11:18:18+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:20:12+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T11:20:12+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T11:30:10+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T11:30:10+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T11:30:10+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T11:30:10+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T11:30:10+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:31:08+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T11:38:37+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T11:43:36+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T11:43:36+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T11:44:33+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T11:44:33+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T11:44:33+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T11:44:33+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b env=development app=enterprise-knowledge
+2025-05-26T11:44:33+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:44:43+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T11:45:16+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T11:45:16+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T11:45:23+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T11:45:23+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T11:45:23+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T11:45:23+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b env=development app=enterprise-knowledge
+2025-05-26T11:45:23+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T11:45:32+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T11:46:08+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T14:11:54+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T14:11:54+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T14:27:46+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T14:27:46+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T14:27:46+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} env=development app=enterprise-knowledge
+2025-05-26T14:27:46+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T14:27:46+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T14:31:00+08:00 [INFO] Request: POST /api/query env=development app=enterprise-knowledge
+2025-05-26T14:57:01+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:01:18+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T15:01:18+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:01:27+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:01:27+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T15:01:27+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:01:27+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:01:27+08:00 [INFO] Server listening on :8080 env=development app=enterprise-knowledge
+2025-05-26T15:02:21+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:04:23+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T15:04:23+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:04:32+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:04:32+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} env=development app=enterprise-knowledge
+2025-05-26T15:04:32+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:04:32+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:04:32+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T15:04:46+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:05:30+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T15:05:30+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:05:39+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:05:39+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T15:05:39+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:05:39+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:05:39+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T15:05:51+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:09:22+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T15:09:22+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:09:31+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:09:31+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T15:09:31+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:09:31+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:09:31+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T15:10:08+08:00 [INFO] Shutting down server... env=development app=enterprise-knowledge
+2025-05-26T15:10:08+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:10:16+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:10:16+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} app=enterprise-knowledge env=development
+2025-05-26T15:10:16+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:10:16+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:10:16+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T15:12:09+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T15:12:09+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T15:12:18+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T15:12:18+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} env=development app=enterprise-knowledge
+2025-05-26T15:12:18+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T15:12:18+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T15:12:18+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T15:12:58+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:17:05+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:18:33+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:19:12+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:22:13+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:29:05+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:33:02+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:37:35+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:44:22+08:00 [INFO] Request: POST /api/query env=development app=enterprise-knowledge
+2025-05-26T15:45:49+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:48:36+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T15:57:47+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T16:43:19+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T16:46:46+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T16:48:11+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T16:52:02+08:00 [INFO] Shutting down server... app=enterprise-knowledge env=development
+2025-05-26T16:52:32+08:00 [ERROR] Server shutdown error: context deadline exceeded env=development app=enterprise-knowledge
+2025-05-26T16:52:32+08:00 [INFO] Server exited properly app=enterprise-knowledge env=development
+2025-05-26T16:52:54+08:00 [INFO] Application starting... app=enterprise-knowledge env=development
+2025-05-26T16:52:54+08:00 [INFO] Loaded configuration: {Server:{Address::8080 Timeout:30s} Logging:{Environment:development FilePath:./logs/app.log Console:true} Milvus:{Address:localhost:19530 Username: Password:*** CollectionName:enterprise_docs TLS:{Enabled:false CertPath:}} Embedding:{ModelName:all-MiniLM-L6-v2 APIKey:*** Timeout:30s ApiURL:http://localhost:8081/embed Model:} DeepSeek:{BaseURL:http://localhost:11434 APIKey:*** Model:deepseek-r1:1.5b Timeout:30s} Document:{ChunkSize:1000 ChunkOverlap:200 MaxFileSize:10MB}} env=development app=enterprise-knowledge
+2025-05-26T16:52:54+08:00 [INFO] Embedder initialized successfully with model: &{http://localhost:8081/embed dummy all-MiniLM-L6-v2} app=enterprise-knowledge env=development
+2025-05-26T16:52:54+08:00 [INFO] DeepSeek client initialized successfully with model: deepseek-r1:1.5b app=enterprise-knowledge env=development
+2025-05-26T16:52:54+08:00 [INFO] Server listening on :8080 app=enterprise-knowledge env=development
+2025-05-26T16:54:00+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
+2025-05-26T17:06:18+08:00 [INFO] Request: POST /api/query app=enterprise-knowledge env=development
