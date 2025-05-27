@@ -40,27 +40,30 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 2.1 deploy deepkseek on local with ollama
 
 2.2 deploy others
-  cd /deployments
   
-  docker-compose build huggingface
+  -cd /deployments
   
-  docker-compose up -d
+  -docker-compose build huggingface
+  
+  -docker-compose up -d
 
 3.Install Dependencies
-
-  bash
-  cd cmd/server
-  go mod tidy
+  
+  -cd cmd/server
+  
+  -go mod tidy
 
 4.Configure Environment
-  cd configs
-  edit confg.yaml with your own params
-  edit with your API keys and Milvus config
+
+  -cd configs
+  
+  -edit confg.yaml with your own params
+  
+  -edit with your API keys and Milvus config
 
 5.Run System
-
-  bash
-  go run main.go
+  
+  -go run main.go
 
 
 
