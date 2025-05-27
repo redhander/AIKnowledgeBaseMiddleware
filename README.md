@@ -65,9 +65,10 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
   
   -go run main.go
 
-
 6. Web access
+   
 https://github.com/redhander/AIKnowlegeBaseWeb
+
 - clone the web
 - npm install
 - npm run serve
