@@ -25,6 +25,7 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 
 - Go 1.24.3+
 - Milvus 2.5.12+ (Docker deployment)
+- Deepseek-(local deployment with ollama)
 - NVIDIA GPU (recommended) or CPU-only mode
 
 ### Installation
