@@ -28,12 +28,13 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 - NVIDIA GPU (recommended) or CPU-only mode
 
 ### Installation
-1. **Clone Repository**
+1. Clone Repository
    ```bash
     https://github.com/redhander/AIKnowledgeBaseMiddleware.git
     cd rag-system
 
 2.Setup Milvus/deepseek (Docker)
+
 2.1 deploy deepkseek on local with ollama
 2.2 bash
 cd /deployments
@@ -49,7 +50,7 @@ go mod tidy
 4.Configure Environment
  cd configs
  edit confg.yaml with your own params
-# Edit with your API keys and Milvus config
+ edit with your API keys and Milvus config
 
 5.Run System
 
