@@ -3,7 +3,7 @@
 
 [![Go Version](https://img.shields.io/badge/Go-1.24.3+-00ADD8?logo=go)](https://golang.org/)
 [![Milvus](https://img.shields.io/badge/Milvus-2.5.12+-00B4D8)](https://milvus.io/)
-MIT License +　Additional Clause
+MIT License +　Additional Clause.
 A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating DeepSeek LLM, Hugging Face embeddings, and Milvus vector database.
 
 ## 🌟 Core Features
