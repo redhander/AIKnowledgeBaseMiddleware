@@ -18,7 +18,7 @@ milvus:
     cert_path: ""
 
 embedding:
-  model_name: "all-MiniLM-L6-v2"
+  model_name: "all-MiniLM-L6-v2"  # todo,change to paraphrase-multilingual-MiniLM-L12-v2
   api_url: "http://localhost:8081/embed"
   api_key: "dummy"
   timeout: 30s
