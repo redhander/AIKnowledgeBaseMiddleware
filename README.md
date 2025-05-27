@@ -31,7 +31,7 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 1. Clone Repository
    ```bash
     https://github.com/redhander/AIKnowledgeBaseMiddleware.git
-    cd rag-system
+    cd cmd/server
 
 2.Setup Milvus/deepseek (Docker)
 
