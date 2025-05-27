@@ -68,8 +68,8 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 6. Web access
    
 https://github.com/redhander/AIKnowlegeBaseWeb
-
-- clone the web
+node version: v22.16.0
+- clone the web repo
 - npm install
 - npm run serve
 - http://localhost:5173
