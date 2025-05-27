@@ -41,29 +41,29 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 
 2.2 deploy others
   
-  -cd /deployments
+  - cd /deployments
   
-  -docker-compose build huggingface
+  - docker-compose build huggingface
   
-  -docker-compose up -d
+  - docker-compose up -d
 
 3.Install Dependencies
   
-  -cd cmd/server
+  - cd cmd/server
   
-  -go mod tidy
+  - go mod tidy
 
 4.Configure Environment
 
-  -cd configs
+  - cd configs
   
-  -edit confg.yaml with your own params
+  - edit confg.yaml with your own params
   
-  -edit with your API keys and Milvus config
+  - edit with your API keys and Milvus config
 
 5.Run System
   
-  -go run main.go
+  - go run main.go
 
 6. Web access
    
