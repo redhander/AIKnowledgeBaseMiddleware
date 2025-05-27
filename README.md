@@ -24,7 +24,7 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
 ### Prerequisites
 
 - Go 1.24.3+
-- Milvus 2.5.12+ (Docker deployment)
+- Milvus 2.5.12+ (Docker deployment. Based on Minio,ETCD)
 - Deepseek-(local deployment with ollama)
 - Huggingface(local deployment or online)
 - NVIDIA GPU (recommended) or CPU-only mode
