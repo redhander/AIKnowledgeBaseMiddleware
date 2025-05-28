@@ -140,7 +140,7 @@ node version: v22.16.0
 
 6. 前端页面访问
    
-https://github.com/redhander/AIKnowlegeBase
+https://github.com/redhander/AIKnowlegeBaseWeb
  - 6.1 克隆仓库
  - 6.2 npm install 
  - 6.3 npm run dev
