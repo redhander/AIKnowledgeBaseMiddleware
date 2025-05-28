@@ -141,10 +141,10 @@ node version: v22.16.0
 6. 前端页面访问
    
 https://github.com/redhander/AIKnowlegeBase
- 6.1 克隆仓库
- 6.2 npm install 
- 6.3 npm run dev
- 6.4 访问 http://localhost:5173
+ - 6.1 克隆仓库
+ - 6.2 npm install 
+ - 6.3 npm run dev
+ - 6.4 访问 http://localhost:5173
 
 
 
