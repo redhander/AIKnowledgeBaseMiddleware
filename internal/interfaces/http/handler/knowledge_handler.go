@@ -25,8 +25,8 @@ func NewKnowledgeHandler(upload *commands.UploadDocumentHandler, query *queries.
 }
 
 func (h *KnowledgeHandler) UploadDocument(w http.ResponseWriter, r *http.Request) {
-	// 解析请求体
-	r.ParseMultipartForm(10 << 20)
+	// 解析请求体，暂时最大解析的文件为100M
+	r.ParseMultipartForm(100 << 20)
 
 	// 获取文件句柄
 	file, handler, err := r.FormFile("file")
