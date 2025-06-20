@@ -2,7 +2,6 @@ package persistence
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/milvus-io/milvus-sdk-go/v2/client"
@@ -28,7 +27,7 @@ func (r *MilvusDocumentRepository) Store(ctx context.Context, doc *document.Docu
 	columns := []entity.Column{
 		entity.NewColumnString("id", []string{doc.ID}),
 		entity.NewColumnVarChar("filename", []string{doc.Metadata.Filename}),
-		entity.NewColumnFloatVector("vector", 768, [][]float32{doc.Vector}),
+		entity.NewColumnFloatVector("vector", 384, [][]float32{doc.Vector}),
 		entity.NewColumnJSONBytes("metadata", [][]byte{[]byte(doc.Metadata.String())}),
 		entity.NewColumnString("content", []string{doc.Content}),
 	}
@@ -52,33 +51,30 @@ func (r *MilvusDocumentRepository) StoreBatch(ctx context.Context, docs []*docum
 	}
 	// 准备批量插入数据
 	idCol := make([]string, len(docs))
-	filenameCol := make([]string, len(docs))
+	//filenameCol := make([]string, len(docs))
 	vectorCol := make([][]float32, len(docs))
 	metadataCol := make([][]byte, len(docs))
 	contentCol := make([]string, len(docs))
-
 	for i, doc := range docs {
 		fmt.Printf("Storing document id: %s\n", doc.ID)
 		if doc.ID == "" {
 			return fmt.Errorf("document at index %d has empty ID", i)
 		}
 		idCol[i] = doc.ID
-		filenameCol[i] = doc.Metadata.Filename
+		//filenameCol[i] = doc.Metadata.Filename
 		vectorCol[i] = doc.Vector
 		metadataCol[i] = []byte(doc.Metadata.String())
 		contentCol[i] = doc.Content
 	}
-	logger.Debugf("Inserting %d documents into Milvus,ids=", idCol)
+	logger.Debugf("metadata=%s", metadataCol)
 	// 创建批量插入列
 	columns := []entity.Column{
-		entity.NewColumnString("id", idCol),
-		entity.NewColumnVarChar("filename", filenameCol),
-		entity.NewColumnFloatVector("vector", 768, vectorCol),
+		entity.NewColumnVarChar("id", idCol),
+		entity.NewColumnFloatVector("vector", 384, vectorCol),
 		entity.NewColumnJSONBytes("metadata", metadataCol),
-		entity.NewColumnString("content", contentCol),
+		entity.NewColumnVarChar("content", contentCol),
 	}
 
-	// 批量插入数据到Milvus
 	_, err := r.Client.Insert(ctx, r.CollectionName, "", columns...)
 	if err != nil {
 		return fmt.Errorf("failed to batch insert documents into Milvus: %w", err)
@@ -110,7 +106,7 @@ func (r *MilvusDocumentRepository) Save(ctx context.Context, doc *document.Docum
 	columns := []entity.Column{
 		entity.NewColumnString("id", []string{doc.ID}),
 		entity.NewColumnVarChar("filename", []string{doc.Metadata.Filename}),
-		entity.NewColumnFloatVector("vector", 768, [][]float32{doc.Vector}),
+		entity.NewColumnFloatVector("vector", 384, [][]float32{doc.Vector}),
 		entity.NewColumnJSONBytes("metadata", [][]byte{[]byte(doc.Metadata.String())}),
 		entity.NewColumnString("content", []string{doc.Content}),
 	}
@@ -131,69 +127,107 @@ func (r *MilvusDocumentRepository) Save(ctx context.Context, doc *document.Docum
 
 func (r *MilvusDocumentRepository) FindByID(ctx context.Context, id string) (*document.Document, error) {
 	expr := fmt.Sprintf("id == \"%s\"", id)
-	outputFields := []string{"id", "filename", "content", "metadata", "vector"}
-
-	result, err := r.Client.Query(
-		ctx,
-		r.CollectionName,
-		[]string{},
-		expr,
-		outputFields,
-	)
+	outputFields := []string{"id", "metadata", "content"} // 暂时只查询id验证
+	result, err := r.Client.Query(ctx, r.CollectionName, []string{}, expr, outputFields)
 	if err != nil {
-		return nil, fmt.Errorf("failed to query document from Milvus: %w", err)
+		return nil, fmt.Errorf("failed to query document: %w", err)
 	}
 
-	if result == nil || len(result) == 0 {
+	if len(result) == 0 {
 		return nil, nil
 	}
-	row := result[0]
 
-	idVal, err := row.Get(0) // Assuming 'id' is the first field
-	if err != nil {
-		return nil, fmt.Errorf("failed to get id: %w", err)
+	row := result[0]
+	logger.Infof("========result: %v", result)
+	logger.Infof("========row: %v", row)
+
+	// 动态获取字段
+	getField := func(name string) (interface{}, error) {
+		for i, fieldName := range outputFields {
+			if fieldName == name {
+				return row.Get(i)
+			}
+		}
+		return nil, fmt.Errorf("field %s not requested", name)
 	}
 
-	// _, err = row.Get(1) // Assuming 'filename' is the second field
+	idVal, err := getField("id")
+	if err != nil {
+		return nil, err
+	}
+
+	// 后续根据需要逐步添加其他字段
+	doc := &document.Document{
+		ID: idVal.(string),
+		// 其他字段暂时留空或设为默认值
+	}
+
+	return doc, nil
+	// expr := fmt.Sprintf("id == \"%s\"", id)
+	// outputFields := []string{"id", "content", "metadata", "vector"}
+
+	// result, err := r.Client.Query(
+	// 	ctx,
+	// 	r.CollectionName,
+	// 	[]string{},
+	// 	expr,
+	// 	outputFields,
+	// )
 	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get filename: %w", err)
+	// 	return nil, fmt.Errorf("failed to query document from Milvus: %w", err)
 	// }
 
-	vectorVal, err := row.Get(2) // Assuming 'vector' is the third field
-	if err != nil {
-		return nil, fmt.Errorf("failed to get vector: %w", err)
-	}
-	logger.Info("vectorVal: %v", vectorVal)
-	metadataVal, err := row.Get(3) // Assuming 'metadata' is the fourth field
-	if err != nil {
-		return nil, fmt.Errorf("failed to get metadata: %w", err)
-	}
-	logger.Info("metadataVal: %v", metadataVal)
-	contentVal, err := row.Get(4) // Assuming 'content' is the fifth field
-	if err != nil {
-		return nil, fmt.Errorf("failed to get content: %w", err)
-	}
-	logger.Info("contentVal: %v", contentVal)
-	// Unmarshal metadata JSON
-	var metadata document.Metadata
-	if err := json.Unmarshal(metadataVal.([]byte), &metadata); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
-	}
+	// if len(result) == 0 {
+	// 	return nil, nil
+	// }
+	// logger.Infof("result: %v，len(result)", result, len(result))
+	// row := result[0]
+	// logger.Info("row: %v", row)
+	// idVal, err := row.Get(0) // Assuming 'id' is the first field
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to get id: %w", err)
+	// }
 
-	doc := &document.Document{
-		ID:      idVal.(string),
-		Content: contentVal.(string),
-		Vector:  vectorVal.([]float32),
-		Metadata: document.Metadata{
-			Filename:     metadata.Filename,
-			Custom:       metadata.Custom,
-			UploadTime:   metadata.UploadTime,
-			OriginalFile: metadata.OriginalFile,
-			ContentType:  metadata.ContentType,
-			Size:         metadata.Size,
-		},
-	}
-	return doc, nil
+	// // _, err = row.Get(1) // Assuming 'filename' is the second field
+	// // if err != nil {
+	// // 	return nil, fmt.Errorf("failed to get filename: %w", err)
+	// // }
+
+	// contentVal, err := row.Get(1) // content (index 1)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("!!!~~!!failed to get content: %w", err)
+	// }
+
+	// metadataVal, err := row.Get(2) // metadata (index 2)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to get metadata: %w", err)
+	// }
+
+	// vectorVal, err := row.Get(3) // vector (index 3)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to get vector: %w", err)
+	// }
+	// logger.Info("contentVal: %v", contentVal)
+	// // Unmarshal metadata JSON
+	// var metadata document.Metadata
+	// if err := json.Unmarshal(metadataVal.([]byte), &metadata); err != nil {
+	// 	return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
+	// }
+
+	// doc := &document.Document{
+	// 	ID:      idVal.(string),
+	// 	Content: contentVal.(string),
+	// 	Vector:  vectorVal.([]float32),
+	// 	Metadata: document.Metadata{
+	// 		Filename:     metadata.Filename,
+	// 		Custom:       metadata.Custom,
+	// 		UploadTime:   metadata.UploadTime,
+	// 		OriginalFile: metadata.OriginalFile,
+	// 		ContentType:  metadata.ContentType,
+	// 		Size:         metadata.Size,
+	// 	},
+	// }
+	// return doc, nil
 }
 
 func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float32, topK int) ([]*document.Document, error) {
@@ -205,7 +239,7 @@ func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float
 
 	// Define the vector field name in your Milvus collection
 	vectorFieldName := "vector"
-	outputFields := []string{"id", "filename", "content", "metadata", "vector"}
+	outputFields := []string{"id", "content", "metadata", "vector"}
 
 	results, err := r.Client.Search(
 		ctx,

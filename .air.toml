@@ -14,7 +14,7 @@ run = "cmd /c tmp\\main.exe"
 # Watch these filename extensions.
 include_ext = ["go", "tpl", "tmpl", "html", "yaml", "yml", "json"]
 # Ignore these filename extensions or directories.
-exclude_dir = ["assets", "tmp", "vendor", "testdata", "deployments/volumes", "configs"]
+exclude_dir = ["assets", "tmp", "vendor", "testdata", "deployments", "configs"]
 # Watch these directories if you specified.
 include_dir = []
 # Exclude files.

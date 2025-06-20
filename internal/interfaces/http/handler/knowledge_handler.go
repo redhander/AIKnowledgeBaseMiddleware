@@ -75,7 +75,10 @@ func (h *KnowledgeHandler) QueryKnowledge(w http.ResponseWriter, r *http.Request
 		http.Error(w, fmt.Sprintf("Invalid request body: %v", err), http.StatusBadRequest)
 		return
 	}
-
+	const DefaultTopK = 10
+	if req.TopK <= 0 {
+		req.TopK = DefaultTopK
+	}
 	// 调用 queryHandler.Handle()
 	ctx := r.Context()
 	result, err := h.queryHandler.Handle(ctx, req)

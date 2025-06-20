@@ -35,7 +35,8 @@ func NewMilvusClient(ctx context.Context, cfg infrastructure.MilvusConfig) (*Mil
 	if err != nil {
 		return nil, fmt.Errorf("failed to check collection existence: %v", err)
 	}
-
+	// err = milvusClient.DropCollection(ctx, cfg.CollectionName)
+	// logger.Debugf("drop collection result:", err)
 	// 如果集合不存在，则创建
 	if !exists {
 		schema := &entity.Schema{
@@ -67,7 +68,7 @@ func NewMilvusClient(ctx context.Context, cfg infrastructure.MilvusConfig) (*Mil
 					Name:     "vector",
 					DataType: entity.FieldTypeFloatVector,
 					TypeParams: map[string]string{
-						"dim": "768", // 根据嵌入模型调整维度
+						"dim": "384", // 根据嵌入模型调整维度
 					},
 				},
 			},
@@ -89,7 +90,9 @@ func NewMilvusClient(ctx context.Context, cfg infrastructure.MilvusConfig) (*Mil
 			return nil, fmt.Errorf("failed to create index: %v", err)
 		}
 	}
-
+	if err := milvusClient.LoadCollection(ctx, cfg.CollectionName, false); err != nil {
+		return nil, fmt.Errorf("failed to load collection: %v", err)
+	}
 	return &MilvusClient{
 		Client:         milvusClient,
 		CollectionName: cfg.CollectionName,
@@ -124,7 +127,7 @@ func (mc *MilvusClient) InsertDocuments(docs []document.Document) error {
 		metadataBytes = append(metadataBytes, []byte(metadata))
 	}
 	metadataCol := entity.NewColumnJSONBytes("metadata", metadataBytes)
-	vectorCol := entity.NewColumnFloatVector("vector", 768, vectors)
+	vectorCol := entity.NewColumnFloatVector("vector", 384, vectors)
 
 	_, err := mc.Client.Insert(context.Background(), mc.CollectionName, "", idCol, contentCol, metadataCol, vectorCol)
 	if err != nil {
