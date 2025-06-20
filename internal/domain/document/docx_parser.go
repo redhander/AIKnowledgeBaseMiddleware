@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/qifengzhang007/gooxml/document"
 	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/infrastructure/logger"
 )
@@ -68,6 +69,7 @@ func (p *DOCXParser) Parse(filePath string) ([]*Document, error) {
 	var documents []*Document
 	for _, chunk := range chunks {
 		documents = append(documents, &Document{
+			ID:      uuid.New().String(),
 			Content: chunk,
 			Metadata: Metadata{
 				Filename:    filepath.Base(filePath),
@@ -76,7 +78,7 @@ func (p *DOCXParser) Parse(filePath string) ([]*Document, error) {
 			},
 		})
 	}
-
+	logger.Debugf("Parsed %d chunks from %s", len(documents), filePath)
 	return documents, nil
 }
 

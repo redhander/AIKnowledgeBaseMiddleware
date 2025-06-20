@@ -18,6 +18,8 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
   Handles multilingual content via `All-MiniLM-L12-v2`
 - **Performance Optimized**  
   GPU-accelerated inference + batch processing pipeline
+- **Hot Reload Development**  
+  Automatic code compilation and server restart on file changes
 
 ## 🛠️ Quick Start
 
@@ -62,8 +64,59 @@ A Retrieval-Augmented Generation (RAG) system for intelligent Q&A, integrating D
   - edit with your API keys and Milvus config
 
 5.Run System
-  
-  - go run main.go
+
+### Development with Hot Reload
+
+For the best development experience, use hot reload which automatically recompiles and restarts the server when you make code changes:
+
+#### Using Make (Recommended)
+```bash
+# Install air tool and start development server
+make dev
+
+# Or install air separately
+make install-air
+make dev
+```
+
+#### Using Scripts
+```bash
+# Windows PowerShell
+.\scripts\dev.ps1
+
+# Windows Command Prompt
+dev.bat
+
+# Linux/macOS
+./scripts/dev.sh
+```
+
+#### Manual Air Installation
+```bash
+# Install air globally
+go install github.com/cosmtrek/air@latest
+
+# Start development server
+air
+```
+
+#### Available Make Commands
+```bash
+make help      # Show all available commands
+make build     # Build the application
+make run       # Run the server normally
+make dev       # Run with hot reload
+make clean     # Clean build artifacts
+make test      # Run tests
+make fmt       # Format code
+make deps      # Download dependencies
+```
+
+### Production Run
+```bash
+# Normal run without hot reload
+go run main.go
+```
 
 6. Web access
    
@@ -73,6 +126,27 @@ node version: v22.16.0
 - npm install
 - npm run serve
 - http://localhost:5173
+
+## 🔧 Development
+
+### Hot Reload Configuration
+
+The project uses [Air](https://github.com/cosmtrek/air) for hot reloading. Configuration is in `.air.toml`:
+
+- **Watched Extensions**: `.go`, `.yaml`, `.yml`, `.json`
+- **Excluded Directories**: `tmp`, `vendor`, `testdata`, `deployments/volumes`
+- **Build Delay**: 1000ms to prevent excessive rebuilds
+- **Auto Cleanup**: Temporary files are cleaned on exit
+
+### File Structure
+```
+├── .air.toml              # Air hot reload configuration
+├── Makefile               # Build and development commands
+├── scripts/
+│   ├── dev.ps1           # Windows PowerShell dev script
+│   └── dev.sh            # Linux/macOS dev script
+└── tmp/                  # Temporary build directory (auto-created)
+```
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 # AIKnowledgeBaseMiddleware
@@ -88,7 +162,7 @@ node version: v22.16.0
 - 实时知识更新***  
   动态更新Milvus知识库，增量索引
 - 多语言支持**  
-  通过 “All-MiniLM-L12-v2 ”处理多语言内容
+  通过 "All-MiniLM-L12-v2 "处理多语言内容
 - 性能优化***  
   GPU加速推理+批处理管道
 

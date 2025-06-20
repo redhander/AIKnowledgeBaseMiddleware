@@ -24,7 +24,7 @@ import (
 
 func main() {
 	// 1. 初始化配置
-	cfg, err := config.Load("../../configs/config.yaml")
+	cfg, err := config.Load("configs/config.yaml")
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
@@ -122,7 +122,7 @@ func main() {
 // 初始化日志系统
 func initLogger(cfg config.LoggingConfig) logger.Logger {
 	var output io.Writer = os.Stdout
-
+	os.MkdirAll("./logs", os.ModePerm)
 	if cfg.FilePath != "" {
 		file, err := os.OpenFile(cfg.FilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {

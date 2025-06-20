@@ -50,7 +50,6 @@ func (r *MilvusDocumentRepository) StoreBatch(ctx context.Context, docs []*docum
 	if len(docs) == 0 {
 		return nil
 	}
-
 	// 准备批量插入数据
 	idCol := make([]string, len(docs))
 	filenameCol := make([]string, len(docs))
@@ -59,13 +58,17 @@ func (r *MilvusDocumentRepository) StoreBatch(ctx context.Context, docs []*docum
 	contentCol := make([]string, len(docs))
 
 	for i, doc := range docs {
+		fmt.Printf("Storing document id: %s\n", doc.ID)
+		if doc.ID == "" {
+			return fmt.Errorf("document at index %d has empty ID", i)
+		}
 		idCol[i] = doc.ID
 		filenameCol[i] = doc.Metadata.Filename
 		vectorCol[i] = doc.Vector
 		metadataCol[i] = []byte(doc.Metadata.String())
 		contentCol[i] = doc.Content
 	}
-
+	logger.Debugf("Inserting %d documents into Milvus,ids=", idCol)
 	// 创建批量插入列
 	columns := []entity.Column{
 		entity.NewColumnString("id", idCol),

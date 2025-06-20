@@ -1,0 +1,19 @@
+{
+     "registry-mirrors": [
+        "https://docker.1panelproxy.com",
+        "https://2a6bf1988cb6428c877f723ec7530dbc.mirror.swr.myhuaweicloud.com",
+        "https://docker.m.daocloud.io",
+        "https://hub-mirror.c.163.com",
+        "https://mirror.baidubce.com",
+        "https://your_preferred_mirror",
+        "https://dockerhub.icu",
+        "https://docker.registry.cyou",
+        "https://docker-cf.registry.cyou",
+        "https://dockercf.jsdelivr.fyi",
+        "https://docker.jsdelivr.fyi",
+        "https://dockertest.jsdelivr.fyi",
+        "https://mirror.aliyuncs.com",
+        "https://dockerproxy.com",
+        "https://mirror.baidubce.com",
+        "https://docker.m.daocloud.io","https://docker.nju.edu.cn","https://docker.mirrors.sjtug.sjtu.edu.cn","https://docker.mirrors.ustc.edu.cn","https://mirror.iscas.ac.cn","https://docker.rainbond.cc","https://docker.m.daocloud.io/","https://huecker.io/","https://dockerhub.timeweb.cloud","https://noohub.ru/","https://dockerproxy.com","https://docker.mirrors.ustc.edu.cn","https://docker.nju.edu.cn","https://xx4bwyg2.mirror.aliyuncs.com","http://f1361db2.m.daocloud.io","https://registry.docker-cn.com","https://docker.mirrors.ustc.edu.cn"]
+}

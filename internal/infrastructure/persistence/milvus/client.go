@@ -117,6 +117,8 @@ func (mc *MilvusClient) InsertDocuments(docs []document.Document) error {
 	// 插入数据
 	idCol := entity.NewColumnVarChar("id", ids)
 	contentCol := entity.NewColumnVarChar("content", contents)
+
+	// Convert metadata strings to bytes
 	var metadataBytes [][]byte
 	for _, metadata := range metadatas {
 		metadataBytes = append(metadataBytes, []byte(metadata))
