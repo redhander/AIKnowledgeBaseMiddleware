@@ -46,3 +46,9 @@ func (c *Client) Generate(ctx context.Context, prompt string) (string, error) {
 func (c *Client) Model() string {
 	return c.service.model
 }
+
+// GenerateEmbedding 调用DeepSeek生成文本的嵌入向量
+func (c *Client) GenerateEmbedding(ctx context.Context, text string) ([]float32, error) {
+	// 这里调用DeepSeekQueryService的实现
+	return c.service.GenerateEmbedding(ctx, text)
+}

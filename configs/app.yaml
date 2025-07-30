@@ -13,6 +13,9 @@ milvus:
   username: ""
   password: ""
   collection_name: "enterprise_docs"
+  common:
+    security:
+      authorizationEnabled: false
   tls:
     enabled: false
     cert_path: ""

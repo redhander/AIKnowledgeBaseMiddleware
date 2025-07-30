@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
@@ -51,6 +52,7 @@ func (p *TextParser) Parse(filePath string) ([]*Document, error) {
 	var documents []*Document
 	for _, chunk := range chunks {
 		documents = append(documents, &Document{
+			ID:      uuid.New().String(),
 			Content: chunk,
 			Metadata: Metadata{
 				Filename:    filepath.Base(filePath),

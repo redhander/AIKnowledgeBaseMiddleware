@@ -1,13 +1,15 @@
 package persistence
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/milvus-io/milvus-sdk-go/v2/client"
 	"github.com/milvus-io/milvus-sdk-go/v2/entity"
 	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/domain/document"
-	"github.com/redhander/AIKnowledgeBaseMiddleware/internal/infrastructure/logger"
 )
 
 type MilvusDocumentRepository struct {
@@ -63,10 +65,11 @@ func (r *MilvusDocumentRepository) StoreBatch(ctx context.Context, docs []*docum
 		idCol[i] = doc.ID
 		//filenameCol[i] = doc.Metadata.Filename
 		vectorCol[i] = doc.Vector
-		metadataCol[i] = []byte(doc.Metadata.String())
-		contentCol[i] = doc.Content
+		// Sanitize content to ensure valid UTF-8
+		contentCol[i] = sanitizeString(doc.Content)
+		metadataCol[i] = []byte(sanitizeString(doc.Metadata.String()))
 	}
-	logger.Debugf("metadata=%s", metadataCol)
+	//logger.Debugf("metadata=%s", metadataCol)
 	// 创建批量插入列
 	columns := []entity.Column{
 		entity.NewColumnVarChar("id", idCol),
@@ -87,6 +90,27 @@ func (r *MilvusDocumentRepository) StoreBatch(ctx context.Context, docs []*docum
 	}
 
 	return nil
+}
+
+// Helper function to sanitize strings to valid UTF-8
+func sanitizeString(s string) string {
+	if utf8.ValidString(s) {
+		return s
+	}
+
+	// If invalid UTF-8 found, replace invalid sequences
+	buf := make([]byte, 0, len(s))
+	for i := 0; i < len(s); {
+		r, size := utf8.DecodeRuneInString(s[i:])
+		if r == utf8.RuneError {
+			// Replace invalid UTF-8 with replacement character
+			buf = append(buf, []byte("")...)
+		} else {
+			buf = append(buf, s[i:i+size]...)
+		}
+		i += size
+	}
+	return string(buf)
 }
 
 // Implement all required methods
@@ -127,7 +151,7 @@ func (r *MilvusDocumentRepository) Save(ctx context.Context, doc *document.Docum
 
 func (r *MilvusDocumentRepository) FindByID(ctx context.Context, id string) (*document.Document, error) {
 	expr := fmt.Sprintf("id == \"%s\"", id)
-	outputFields := []string{"id", "metadata", "content"} // 暂时只查询id验证
+	outputFields := []string{"id", "metadata", "content"}
 	result, err := r.Client.Query(ctx, r.CollectionName, []string{}, expr, outputFields)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query document: %w", err)
@@ -137,100 +161,78 @@ func (r *MilvusDocumentRepository) FindByID(ctx context.Context, id string) (*do
 		return nil, nil
 	}
 
-	row := result[0]
-	logger.Infof("========result: %v", result)
-	logger.Infof("========row: %v", row)
-
-	// 动态获取字段
-	getField := func(name string) (interface{}, error) {
-		for i, fieldName := range outputFields {
-			if fieldName == name {
-				return row.Get(i)
-			}
-		}
-		return nil, fmt.Errorf("field %s not requested", name)
+	// 直接按顺序获取字段值
+	fieldMap := make(map[string]entity.Column)
+	for _, col := range result {
+		fieldMap[col.Name()] = col
 	}
-
-	idVal, err := getField("id")
+	idCol := fieldMap["id"]
+	metadataCol := fieldMap["metadata"]
+	contentCol := fieldMap["content"]
+	// 获取ID
+	idVal, err := idCol.Get(0)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get id: %w", err)
 	}
 
-	// 后续根据需要逐步添加其他字段
+	// 处理id
+	var idStr string
+	switch v := idVal.(type) {
+	case string:
+		idStr = v
+	case []byte:
+		idStr = string(v)
+	default:
+		return nil, fmt.Errorf("unexpected type for id field: %T", v)
+	}
+
+	// 获取metadata
+	metadataVal, err := metadataCol.Get(0)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get metadata: %w", err)
+	}
+
+	// 解析metadata
+	var metadataBytes []byte
+	switch v := metadataVal.(type) {
+	case string:
+		metadataBytes = []byte(sanitizeString(v)) // 添加字符串清理
+	case []byte:
+		metadataBytes = sanitizeBytes(v) // 添加字节数组清理
+	default:
+		return nil, fmt.Errorf("unexpected type for metadata field: %T", v)
+	}
+
+	var metadata document.Metadata
+	if err := json.Unmarshal(metadataBytes, &metadata); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal metadata (raw: %s): %w", string(metadataBytes), err)
+	}
+	// 获取content
+	contentVal, err := contentCol.Get(0)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get content: %w", err)
+	}
+
+	// 处理content
+	var content string
+	switch v := contentVal.(type) {
+	case string:
+		content = v
+	case []byte:
+		content = string(v)
+	default:
+		return nil, fmt.Errorf("unexpected type for content field: %T", v)
+	}
+
 	doc := &document.Document{
-		ID: idVal.(string),
-		// 其他字段暂时留空或设为默认值
+		ID:       idStr,
+		Content:  content,
+		Metadata: metadata,
 	}
-
 	return doc, nil
-	// expr := fmt.Sprintf("id == \"%s\"", id)
-	// outputFields := []string{"id", "content", "metadata", "vector"}
-
-	// result, err := r.Client.Query(
-	// 	ctx,
-	// 	r.CollectionName,
-	// 	[]string{},
-	// 	expr,
-	// 	outputFields,
-	// )
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to query document from Milvus: %w", err)
-	// }
-
-	// if len(result) == 0 {
-	// 	return nil, nil
-	// }
-	// logger.Infof("result: %v，len(result)", result, len(result))
-	// row := result[0]
-	// logger.Info("row: %v", row)
-	// idVal, err := row.Get(0) // Assuming 'id' is the first field
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get id: %w", err)
-	// }
-
-	// // _, err = row.Get(1) // Assuming 'filename' is the second field
-	// // if err != nil {
-	// // 	return nil, fmt.Errorf("failed to get filename: %w", err)
-	// // }
-
-	// contentVal, err := row.Get(1) // content (index 1)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("!!!~~!!failed to get content: %w", err)
-	// }
-
-	// metadataVal, err := row.Get(2) // metadata (index 2)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get metadata: %w", err)
-	// }
-
-	// vectorVal, err := row.Get(3) // vector (index 3)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get vector: %w", err)
-	// }
-	// logger.Info("contentVal: %v", contentVal)
-	// // Unmarshal metadata JSON
-	// var metadata document.Metadata
-	// if err := json.Unmarshal(metadataVal.([]byte), &metadata); err != nil {
-	// 	return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
-	// }
-
-	// doc := &document.Document{
-	// 	ID:      idVal.(string),
-	// 	Content: contentVal.(string),
-	// 	Vector:  vectorVal.([]float32),
-	// 	Metadata: document.Metadata{
-	// 		Filename:     metadata.Filename,
-	// 		Custom:       metadata.Custom,
-	// 		UploadTime:   metadata.UploadTime,
-	// 		OriginalFile: metadata.OriginalFile,
-	// 		ContentType:  metadata.ContentType,
-	// 		Size:         metadata.Size,
-	// 	},
-	// }
-	// return doc, nil
 }
 
-func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float32, topK int) ([]*document.Document, error) {
+func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float32, topK int, filter string) ([]*document.Document, error) {
 	// Define the search parameters
 	searchParam, err := entity.NewIndexFlatSearchParam()
 	if err != nil {
@@ -245,7 +247,7 @@ func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float
 		ctx,
 		r.CollectionName,
 		[]string{}, // partition names
-		"",         // filter expression
+		filter,     // filter expression
 		outputFields,
 		[]entity.Vector{entity.FloatVector(embedding)},
 		vectorFieldName,
@@ -291,4 +293,25 @@ func (r *MilvusDocumentRepository) Search(ctx context.Context, embedding []float
 	}
 
 	return docs, nil
+}
+
+// 新增 sanitizeBytes 函数
+func sanitizeBytes(b []byte) []byte {
+	if utf8.Valid(b) {
+		return b
+	}
+
+	// 清理无效UTF-8序列
+	var buf bytes.Buffer
+	for i := 0; i < len(b); {
+		r, size := utf8.DecodeRune(b[i:])
+		if r == utf8.RuneError {
+			// 跳过无效字符
+			i++
+		} else {
+			buf.WriteRune(r)
+			i += size
+		}
+	}
+	return buf.Bytes()
 }

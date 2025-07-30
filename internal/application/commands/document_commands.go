@@ -167,7 +167,7 @@ func (h *UploadDocumentHandler) Handle(ctx context.Context, cmd UploadDocumentCo
 		log.Error("No vectors generated for document")
 		return fmt.Errorf("failed to generate any embeddings")
 	}
-
+	//log.Debugf("docs===", *docs[0])
 	// 8. 存储到向量数据库
 	if err := h.docRepo.StoreBatch(ctx, docs); err != nil {
 		log.Errorf("Failed to store documents: %v", err)

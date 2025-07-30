@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/ledongthuc/pdf"
 )
 
@@ -35,6 +36,7 @@ func (p *PDFParser) Parse(filePath string) ([]*Document, error) {
 	var documents []*Document
 	for _, chunk := range chunks {
 		documents = append(documents, &Document{
+			ID:      uuid.New().String(),
 			Content: chunk,
 			Metadata: Metadata{
 				Filename:    filepath.Base(filePath),

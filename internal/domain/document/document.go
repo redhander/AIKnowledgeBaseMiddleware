@@ -44,7 +44,7 @@ type DocumentRepository interface {
 	Store(ctx context.Context, doc *Document) error
 	StoreBatch(ctx context.Context, docs []*Document) error
 	FindByID(ctx context.Context, id string) (*Document, error)
-	Search(ctx context.Context, embedding []float32, topK int) ([]*Document, error)
+	Search(ctx context.Context, embedding []float32, topK int, filter string) ([]*Document, error)
 }
 
 type DocumentParser interface {
